@@ -53,6 +53,7 @@ fileprivate extension AsymmetricKeyAlgorithm {
         case .RSA1_5:
             return .rsaEncryptionPKCS1
         }
+        case .ES
     }
 
     /// Checks if the plain text length does not exceed the maximum

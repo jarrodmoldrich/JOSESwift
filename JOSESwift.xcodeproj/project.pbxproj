@@ -12,6 +12,7 @@
 		5FB763AFF6BE04E8A6AE4DFC /* DataECPublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB763EED5A790CCC29F8771 /* DataECPublicKey.swift */; };
 		5FB764055756A9190628BDDE /* ECKeyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB76EBD36093E9EC475BC2B /* ECKeyCodable.swift */; };
 		5FB7641E9D67F245F52F3A7E /* EC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB760DB390F90F91102DB74 /* EC.swift */; };
+		5FB765DEFACF12C3E56A2832 /* ECDecrypterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB76029E0AAE0A5940E0208 /* ECDecrypterTests.swift */; };
 		5FB76902DBBBEBE867D17D94 /* RSACryptoTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7683476B521915FDB2248 /* RSACryptoTestCase.swift */; };
 		5FB76AC31C9A627FB8626CF3 /* ECVerifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB768A267E1A15571CC58AA /* ECVerifierTests.swift */; };
 		5FB76B8D7F1214FF01FA1A8B /* ECVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB767ECBB50E5A47C671DC1 /* ECVerifier.swift */; };
@@ -107,6 +108,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5FB76029E0AAE0A5940E0208 /* ECDecrypterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECDecrypterTests.swift; sourceTree = "<group>"; };
 		5FB760DB390F90F91102DB74 /* EC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EC.swift; sourceTree = "<group>"; };
 		5FB763EED5A790CCC29F8771 /* DataECPublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataECPublicKey.swift; sourceTree = "<group>"; };
 		5FB767ECBB50E5A47C671DC1 /* ECVerifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECVerifier.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				5FB7683476B521915FDB2248 /* RSACryptoTestCase.swift */,
 				5FB76BD4F46045BF2B182483 /* ECCryptoTestCase.swift */,
 				5FB768A267E1A15571CC58AA /* ECVerifierTests.swift */,
+				5FB76029E0AAE0A5940E0208 /* ECDecrypterTests.swift */,
 			);
 			name = Crypto;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				5FB76E7BEF001684139C9E14 /* ECCryptoTestCase.swift in Sources */,
 				5FB76902DBBBEBE867D17D94 /* RSACryptoTestCase.swift in Sources */,
 				5FB76AC31C9A627FB8626CF3 /* ECVerifierTests.swift in Sources */,
+				5FB765DEFACF12C3E56A2832 /* ECDecrypterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

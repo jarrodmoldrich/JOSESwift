@@ -205,4 +205,77 @@ internal struct EC {
         return true
     }
 
+    /// Encrypts a plain text using a given `RSA` algorithm and the corresponding public key.
+    ///
+    /// - Parameters:
+    ///   - plaintext: The plain text to encrypt.
+    ///   - publicKey: The public key.
+    ///   - algorithm: The algorithm used to encrypt the plain text.
+    /// - Returns: The cipher text (encrypted plain text).
+    /// - Throws: `EncryptionError` if any errors occur while encrypting the plain text.
+    static func encrypt(_ plaintext: Data, with publicKey: KeyType, and algorithm: AsymmetricKeyAlgorithm) throws -> Data {
+        // Check if `AsymmetricKeyAlgorithm` supports a `SecKeyAlgorithm` and
+        // if the algorithm is supported to encrypt with a given public key.
+        guard
+                let secKeyAlgorithm = algorithm.secKeyAlgorithm,
+                SecKeyIsAlgorithmSupported(publicKey, .encrypt, secKeyAlgorithm)
+                else {
+            throw RSAError.algorithmNotSupported
+        }
+
+        // Check if the plain text length does not exceed the maximum.
+        // e.g. for RSA1_5 the plaintext must be 11 bytes smaller than the public key's modulus.
+        guard algorithm.isPlainTextLengthSatisfied(plaintext, for: publicKey) else {
+            throw RSAError.plainTextLengthNotSatisfied
+        }
+
+        // Encrypt the plain text with a given `SecKeyAlgorithm` and a public key.
+        var encryptionError: Unmanaged<CFError>?
+        guard
+                let cipherText = SecKeyCreateEncryptedData(publicKey, secKeyAlgorithm, plaintext as CFData, &encryptionError)
+                else {
+            throw RSAError.encryptingFailed(
+                    description: encryptionError?.takeRetainedValue().localizedDescription ?? "No description available."
+            )
+        }
+
+        return cipherText as Data
+    }
+
+    /// Decrypts a cipher text using a given `RSA` algorithm and the corresponding private key.
+    ///
+    /// - Parameters:
+    ///   - ciphertext: The cipher text to decrypt.
+    ///   - privateKey: The private key.
+    ///   - algorithm: The algorithm used to decrypt the cipher text.
+    /// - Returns: The plain text.
+    /// - Throws: `EncryptionError` if any errors occur while decrypting the cipher text.
+    static func decrypt(_ ciphertext: Data, with privateKey: KeyType, and algorithm: AsymmetricKeyAlgorithm) throws -> Data {
+        // Check if `AsymmetricKeyAlgorithm` supports a `SecKeyAlgorithm` and
+        // if the algorithm is supported to decrypt with a given private key.
+        guard
+                let secKeyAlgorithm = algorithm.secKeyAlgorithm,
+                SecKeyIsAlgorithmSupported(privateKey, .decrypt, secKeyAlgorithm)
+                else {
+            throw RSAError.algorithmNotSupported
+        }
+
+        // Check if the cipher text length does not exceed the maximum.
+        // e.g. for RSA1_5 the cipher text has the same length as the private key's modulus.
+        guard algorithm.isCipherTextLenghtSatisfied(ciphertext, for: privateKey) else {
+            throw RSAError.cipherTextLenghtNotSatisfied
+        }
+
+        // Decrypt the cipher text with a given `SecKeyAlgorithm` and a private key.
+        var decryptionError: Unmanaged<CFError>?
+        guard
+                let plainText = SecKeyCreateDecryptedData(privateKey, secKeyAlgorithm, ciphertext as CFData, &decryptionError)
+                else {
+            throw RSAError.decryptingFailed(
+                    description: decryptionError?.takeRetainedValue().localizedDescription ?? "No description available."
+            )
+        }
+
+        return plainText as Data
+    }
 }
